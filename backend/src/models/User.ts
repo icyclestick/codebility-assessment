@@ -11,6 +11,8 @@ export interface IUser {
     lastName: string;
     createdAt: Date;
     updatedAt: Date;
+    toResponse(): IUserResponse;
+    comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 export interface IUserResponse {

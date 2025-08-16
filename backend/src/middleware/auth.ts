@@ -16,7 +16,7 @@ declare global {
     }
 }
 
-export const authenticate = (req: Request, res: Response, next: NextFunction): void => {
+export const authenticate = (req: Request, _res: Response, next: NextFunction): void => {
     try {
         const authHeader = req.headers.authorization;
 
@@ -24,7 +24,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction): v
             throw new ApiError(401, 'Access token required');
         }
 
-        const token = authHeader.substring(7); 
+        const token = authHeader.substring(7);
 
         if (!token) {
             throw new ApiError(401, 'Access token required');
@@ -59,7 +59,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction): v
 };
 
 export const authorize = (...roles: string[]) => {
-    return (req: Request, res: Response, next: NextFunction): void => {
+    return (req: Request, _res: Response, next: NextFunction): void => {
         if (!req.user) {
             return next(new ApiError(401, 'Authentication required'));
         }

@@ -2,13 +2,13 @@ import { Router } from 'express';
 import { WeatherService } from '../services/WeatherService';
 import { authenticate } from '../middleware/auth';
 import { asyncHandler } from '../middleware/errorHandler';
-import { logger } from '../utils/logger';
+
 import { ApiResponse } from '../types/common';
 
 const router = Router();
 const weatherService = new WeatherService();
 
-router.get('/city/:cityName', authenticate, asyncHandler(async (req, res) => {
+router.get('/city/:cityName', authenticate, asyncHandler(async (req: any, res: any) => {
     const { cityName } = req.params;
     const { country } = req.query;
 
@@ -26,7 +26,7 @@ router.get('/city/:cityName', authenticate, asyncHandler(async (req, res) => {
     res.status(200).json(response);
 }));
 
-router.get('/coordinates', authenticate, asyncHandler(async (req, res) => {
+router.get('/coordinates', authenticate, asyncHandler(async (req: any, res: any) => {
     const { lat, lon } = req.query;
 
     if (!lat || !lon) {
@@ -58,7 +58,7 @@ router.get('/coordinates', authenticate, asyncHandler(async (req, res) => {
     res.status(200).json(response);
 }));
 
-router.get('/forecast/:cityName', authenticate, asyncHandler(async (req, res) => {
+router.get('/forecast/:cityName', authenticate, asyncHandler(async (req: any, res: any) => {
     const { cityName } = req.params;
     const { days } = req.query;
 

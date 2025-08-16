@@ -8,7 +8,7 @@ import { ApiResponse } from '../types/common';
 const router = Router();
 const authService = new AuthService();
 
-router.post('/register', asyncHandler(async (req, res) => {
+router.post('/register', asyncHandler(async (req: any, res: any) => {
     const { error, value } = userValidationSchemas.register.validate(req.body);
     if (error) {
         return res.status(400).json({
@@ -34,7 +34,7 @@ router.post('/register', asyncHandler(async (req, res) => {
     res.status(201).json(response);
 }));
 
-router.post('/login', asyncHandler(async (req, res) => {
+router.post('/login', asyncHandler(async (req: any, res: any) => {
     const { error, value } = userValidationSchemas.login.validate(req.body);
     if (error) {
         return res.status(400).json({
@@ -63,7 +63,7 @@ router.post('/login', asyncHandler(async (req, res) => {
     res.status(200).json(response);
 }));
 
-router.post('/refresh', asyncHandler(async (req, res) => {
+router.post('/refresh', asyncHandler(async (req: any, res: any) => {
     const { userId } = req.body;
     if (!userId) {
         return res.status(400).json({

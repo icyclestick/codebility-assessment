@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { User, IUser, UserRole } from '../models/User';
+import { User, IUser, IUserResponse, UserRole } from '../models/User';
 import { ApiError } from '../middleware/errorHandler';
 import { logger } from '../utils/logger';
 import { PaginationQuery, PaginatedResponse } from '../types/common';
@@ -44,7 +44,7 @@ export class UserService {
         logger.info('Sample users initialized');
     }
 
-    async getAllUsers(query: PaginationQuery): Promise<PaginatedResponse<IUser>> {
+    async getAllUsers(query: PaginationQuery): Promise<PaginatedResponse<IUserResponse>> {
         const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = query;
 
         const usersArray = Array.from(this.users.values());
@@ -127,7 +127,7 @@ export class UserService {
         logger.info(`User deleted: ${user.email}`);
     }
 
-    async searchUsers(searchTerm: string, query: PaginationQuery): Promise<PaginatedResponse<IUser>> {
+    async searchUsers(searchTerm: string, query: PaginationQuery): Promise<PaginatedResponse<IUserResponse>> {
         const { page = 1, limit = 10 } = query;
 
         const usersArray = Array.from(this.users.values());

@@ -9,7 +9,7 @@ import { ApiResponse } from '../types/common';
 const router = Router();
 const userService = new UserService();
 
-router.get('/', authenticate, authorize('admin'), asyncHandler(async (req, res) => {
+router.get('/', authenticate, authorize('admin'), asyncHandler(async (req: any, res: any) => {
     const { page, limit, sortBy, sortOrder } = req.query;
     const query = {
         page: page ? parseInt(page as string) : 1,
@@ -22,7 +22,7 @@ router.get('/', authenticate, authorize('admin'), asyncHandler(async (req, res) 
     res.status(200).json(users);
 }));
 
-router.get('/search', authenticate, authorize('admin'), asyncHandler(async (req, res) => {
+router.get('/search', authenticate, authorize('admin'), asyncHandler(async (req: any, res: any) => {
     const { q, page, limit } = req.query;
     if (!q) {
         return res.status(400).json({
@@ -41,7 +41,7 @@ router.get('/search', authenticate, authorize('admin'), asyncHandler(async (req,
     res.status(200).json(users);
 }));
 
-router.get('/profile', authenticate, asyncHandler(async (req, res) => {
+router.get('/profile', authenticate, asyncHandler(async (req: any, res: any) => {
     const user = await userService.getUserById(req.user!.id);
     const response: ApiResponse = {
         success: true,
@@ -52,7 +52,7 @@ router.get('/profile', authenticate, asyncHandler(async (req, res) => {
     res.status(200).json(response);
 }));
 
-router.get('/:userId', authenticate, authorize('admin'), asyncHandler(async (req, res) => {
+router.get('/:userId', authenticate, authorize('admin'), asyncHandler(async (req: any, res: any) => {
     const { userId } = req.params;
     const user = await userService.getUserById(userId);
     const response: ApiResponse = {
@@ -64,7 +64,7 @@ router.get('/:userId', authenticate, authorize('admin'), asyncHandler(async (req
     res.status(200).json(response);
 }));
 
-router.put('/:userId', authenticate, asyncHandler(async (req, res) => {
+router.put('/:userId', authenticate, asyncHandler(async (req: any, res: any) => {
     const { userId } = req.params;
     const { error, value } = userValidationSchemas.update.validate(req.body);
 
@@ -92,7 +92,7 @@ router.put('/:userId', authenticate, asyncHandler(async (req, res) => {
     res.status(200).json(response);
 }));
 
-router.delete('/:userId', authenticate, asyncHandler(async (req, res) => {
+router.delete('/:userId', authenticate, asyncHandler(async (req: any, res: any) => {
     const { userId } = req.params;
     await userService.deleteUser(userId, req.user!);
 

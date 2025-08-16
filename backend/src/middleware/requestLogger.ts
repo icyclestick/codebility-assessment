@@ -13,7 +13,7 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction): 
     });
 
     const originalEnd = res.end;
-    res.end = function (chunk?: any, encoding?: any): void {
+    res.end = function (chunk?: any, encoding?: any) {
         const duration = Date.now() - start;
 
         logger.info(`Response sent for ${req.method} ${req.originalUrl}`, {
@@ -24,7 +24,7 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction): 
             timestamp: new Date().toISOString(),
         });
 
-        originalEnd.call(this, chunk, encoding);
+        return originalEnd.call(this, chunk, encoding);
     };
 
     next();
